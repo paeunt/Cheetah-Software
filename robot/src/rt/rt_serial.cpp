@@ -18,10 +18,12 @@
 
 #undef termios
 
-//#include <linux/termios.h>
+//#include <termios.h>
 #include <math.h>
 #include <pthread.h>
+#include <asm/ioctls.h>
 #include <sys/ioctl.h>
+#include <asm/termbits.h>
 #include <endian.h>
 #include <stdint.h>
 
@@ -30,7 +32,7 @@
 void init_serial_for_sbus(int fd, int baud) {
   printf("\t[RT SERIAL] Configuring serial device...\n");
   printf("%d,%d", fd, baud);
-  /* struct termios2 tty;
+  struct termios2 tty;
 
   ioctl(fd, TCGETS2, &tty);
   tty.c_cflag &= ~CBAUD;
@@ -69,7 +71,7 @@ tty.c_cflag |= CS8;
   // tty.c_cflag &= ~CRTSCTS;
   // cfmakeraw(&tty);
 
-  ioctl(fd, TCSETS2, &tty); */
+  ioctl(fd, TCSETS2, &tty); 
 }
 
 /**
